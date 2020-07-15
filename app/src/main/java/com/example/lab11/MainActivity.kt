@@ -18,6 +18,10 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
+    private var output: String? = null
+    private var mediaRecorder: MediaRecorder? = null
+    private var state: Boolean = false
+    private var recordingStopped: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +38,23 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        output = Environment.getExternalStorageDirectory().absolutePath + "/grabacion.mp3"
+        mediaRecorder = MediaRecorder()
+
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mediaRecorder?.setOutputFile(output)
 
         button_start_recording.setOnClickListener {
-            //aqui se comiuenza a grabar supuestamente
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                val permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                ActivityCompat.requestPermissions(this, permissions,0)
+            } else {
+                //aqui se comiuenza a grabar supuestamente
+            }
         }
 
         button_stop_recording.setOnClickListener{
@@ -131,5 +149,5 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
-
+    
 }
