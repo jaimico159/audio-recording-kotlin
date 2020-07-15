@@ -48,14 +48,17 @@ class MainActivity : AppCompatActivity() {
 
         button_start_recording.setOnClickListener {
             //aqui se comiuenza a grabar supuestamente
+            startRecording()
         }
 
         button_stop_recording.setOnClickListener{
             //se tiene que parar
+            stopRecording()
         }
 
         button_pause_recording.setOnClickListener {
             //se tien que pausar y mejor si cambiamos el texto del boton
+            resumeRecording()
         }
     }
 
