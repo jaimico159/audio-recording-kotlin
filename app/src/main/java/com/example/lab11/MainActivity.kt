@@ -4,15 +4,20 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaRecorder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +33,19 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        
+
+
+        button_start_recording.setOnClickListener {
+            //aqui se comiuenza a grabar supuestamente
+        }
+
+        button_stop_recording.setOnClickListener{
+            //se tiene que parar
+        }
+
+        button_pause_recording.setOnClickListener {
+            //se tien que pausar y mejor si cambiamos el texto del boton
+        }
     }
 
     /** Helper to ask recording permission.  */
@@ -113,4 +130,6 @@ class MainActivity : AppCompatActivity() {
 
         recreate()
     }
+
+
 }
