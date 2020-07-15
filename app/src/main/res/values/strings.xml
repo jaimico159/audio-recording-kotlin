@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab 11</string>
+    <string name="stop">Stop</string>
+    <string name="sound_recorder">Sound Recorder</string>
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+</resources>
