@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
+import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,16 +51,26 @@ class MainActivity : AppCompatActivity() {
         button_start_recording.setOnClickListener {
             //aqui se comiuenza a grabar supuestamente
             startRecording()
+            button_start_recording.visibility = View.GONE
+            button_stop_recording.visibility = View.VISIBLE
+            button_pause_recording.visibility = View.VISIBLE
+            recView.visibility = View.VISIBLE
+
         }
 
         button_stop_recording.setOnClickListener{
             //se tiene que parar
             stopRecording()
+            button_start_recording.visibility = View.VISIBLE
+            button_stop_recording.visibility = View.GONE
+            button_pause_recording.visibility = View.GONE
+            recView.visibility = View.INVISIBLE
+
         }
 
         button_pause_recording.setOnClickListener {
             //se tien que pausar y mejor si cambiamos el texto del boton
-            resumeRecording()
+            pauseRecording()
         }
     }
 
@@ -150,7 +162,9 @@ class MainActivity : AppCompatActivity() {
             mediaRecorder?.prepare()
             mediaRecorder?.start()
             state = true
+            sleep(100)
             // aún tendriamos que poner algo como una imagen que indique que esta grabando :(
+            recView.visibility = View.VISIBLE
             Toast.makeText(this, "La grabación empezó", Toast.LENGTH_SHORT).show()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
@@ -160,12 +174,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopRecording(){
+        sleep(100)
         if(state){
             mediaRecorder?.stop()
             mediaRecorder?.release()
             state = false
         }else{
             //poner algo para saber que no se está grabando
+
             Toast.makeText(this, "Ya dejaste de grabar", Toast.LENGTH_SHORT).show()
         }
     }
@@ -176,10 +192,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"Parado", Toast.LENGTH_SHORT).show()
                 mediaRecorder?.pause()
                 recordingStopped = true
-                button_pause_recording.text = "Resume"
+                button_pause_recording.text = "RESUME"
             }else{
 
                 //aqui se cambiaria el boton para que diaga pause/resume o algo así...
+                button_pause_recording.text = "RESUME"
                 resumeRecording()
             }
         }
@@ -188,7 +205,7 @@ class MainActivity : AppCompatActivity() {
     private fun resumeRecording() {
         Toast.makeText(this,"Volviendo a grabar!", Toast.LENGTH_SHORT).show()
         mediaRecorder?.resume()
-        button_pause_recording.text = "Pause"
+        button_pause_recording.text = "PAUSE"
         recordingStopped = false
     }
 }

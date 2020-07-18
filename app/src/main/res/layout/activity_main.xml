@@ -1,48 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textview_sound_recorder_heading"
+    <Space
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sound_recorder"
-        android:layout_centerHorizontal="true"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:layout_marginTop="32dp"
-        />
+        android:layout_height="10dp" />
 
-    <Button
-        android:id="@+id/button_start_recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/start"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
-        android:layout_centerVertical="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_pause_recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pause"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"/>
+        <TextView
+            android:id="@+id/textview_sound_recorder_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/sound_recorder"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button_stop_recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stop"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"/>
+        <ImageView
+            android:id="@+id/recView"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:contentDescription="@string/micro"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/presence_audio_online" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <Button
+                android:id="@+id/button_start_recording"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/start" />
+
+            <Button
+                android:id="@+id/button_pause_recording"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pause"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_stop_recording"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/stop"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
