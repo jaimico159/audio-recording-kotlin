@@ -40,13 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        output = Environment.getExternalStorageDirectory().absolutePath + "/grabacion.mp3"
-        mediaRecorder = MediaRecorder()
-
-        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        mediaRecorder?.setOutputFile(output)
+        initMediaRecorder()
 
         button_start_recording.setOnClickListener {
             //aqui se comiuenza a grabar supuestamente
@@ -156,13 +150,21 @@ class MainActivity : AppCompatActivity() {
 
         recreate()
     }
+    private fun initMediaRecorder(){
+        output = Environment.getExternalStorageDirectory().absolutePath + "/grabacion.mp3"
+        mediaRecorder = MediaRecorder()
+
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mediaRecorder?.setOutputFile(output)
+    }
 
     private fun startRecording() {
         try {
             mediaRecorder?.prepare()
             mediaRecorder?.start()
             state = true
-            sleep(100)
             // aún tendriamos que poner algo como una imagen que indique que esta grabando :(
             recView.visibility = View.VISIBLE
             Toast.makeText(this, "La grabación empezó", Toast.LENGTH_SHORT).show()
@@ -174,14 +176,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopRecording(){
-        sleep(100)
         if(state){
             mediaRecorder?.stop()
             mediaRecorder?.release()
             state = false
+            Toast.makeText(this, "Ya dejaste de grabar", Toast.LENGTH_SHORT).show()
+            initMediaRecorder()
         }else{
             //poner algo para saber que no se está grabando
-
             Toast.makeText(this, "Ya dejaste de grabar", Toast.LENGTH_SHORT).show()
         }
     }
@@ -194,9 +196,7 @@ class MainActivity : AppCompatActivity() {
                 recordingStopped = true
                 button_pause_recording.text = "RESUME"
             }else{
-
                 //aqui se cambiaria el boton para que diaga pause/resume o algo así...
-                button_pause_recording.text = "RESUME"
                 resumeRecording()
             }
         }
@@ -207,5 +207,6 @@ class MainActivity : AppCompatActivity() {
         mediaRecorder?.resume()
         button_pause_recording.text = "PAUSE"
         recordingStopped = false
+        state = true
     }
 }
